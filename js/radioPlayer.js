@@ -4,9 +4,12 @@ export const radioPlayerInit = () => {
     radioNavigation = document.querySelector(".radio-navigation"),
     radioHeaderBig = document.querySelector(".radio-header__big"),
     radioItem = document.querySelectorAll(".radio-item"),
-    radioStop = document.querySelector(".radio-stop");
+    radioStop = document.querySelector(".radio-stop"),
+    radioVolume = document.querySelector(".radio-volume"),
+    radioMute = document.querySelector(".radio-mute");
 
-  // videoVolume = document.querySelector(".video-volume"),
+  let prevVolume = 1;
+  //
   // videoTimeTotal = document.querySelector(".video-time__total"),
 
   // videoFullscreen = document.querySelector(".video-fullscreen");
@@ -53,5 +56,18 @@ export const radioPlayerInit = () => {
       audio.pause();
     }
     changeIcinPlay();
+  });
+
+  radioVolume.addEventListener("input", () => {
+    audio.volume = radioVolume.value / 100;
+  });
+
+  radioMute.addEventListener("click", () => {
+    if (audio.volume) {
+      prevVolume = audio.volume;
+      audio.volume = 0;
+    } else {
+      audio.volume = prevVolume;
+    }
   });
 };
